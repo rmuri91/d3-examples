@@ -1,26 +1,11 @@
-// Paso 1: Escalas
+/* Paso 1: Escalas
 const widthScale = 960
 const heightScale = 540
 
 const xScale = d3.scaleLinear().range([0, widthScale])
 const yScale = d3.scaleLinear().range([heightScale, 0])
-/*
-// Paso 2: Construir el contenedor SVG
-const margin = {top: 20, right: 20, bottom: 20, left: 20}
-const widthBox = 1280 - margin.left - margin.right
-const heightBox = 720 - margin.top - margin.bottom
+*/
 
-const svg = d3.select("#d3-container")
-              .append("svg")
-              .attr("viewBox", `0 0 ${widthBox} ${heightBox}`)
-
-const dataset = ["Apple", "Orange", "Mango"]
-
-d3.select("#d3-container").selectAll("p")
-    .data(dataset)
-    .join("p")
-    .attr("class", "fruit")
-    .text((data,index) => `Fruta nº ${index}: ${data}`) */
 
 // Definir dimensiones y márgenes
 const margin = {top: 10, right: 30, bottom: 30, left: 60},
@@ -33,24 +18,17 @@ const svg = d3.select("#d3-container")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
               .append("g")
-                .attr("transform", `translate(${margin.left},${margin.top})`)
+                .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
 // Leer los datos
-//d3.csv("C:/Users/AEAT/Documents/d3-examples/data/lines.csv", d => {
-d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv", d => {
-// d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
+d3.csv("../data/scatter.csv")
+// d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv",
 
-  // Cuando los datos hayan sido leídos, darles el formato adecuado:
-  return {
-    date: d3.timeParse("%Y-%m-%d")(d.date),
-    value: d.value
-  }
+.then(data => {
 
-}).then(data => {
-
-  // Añadir eje X (formato fecha)
-  const x = d3.scaleTime()
-              .domain(d3.extent(data, d => d.date))
+  // Añadir eje X
+  const x = d3.scaleLinear()
+              .domain([0, 4000])
               .range([0, width])
   svg.append("g")
     .attr("transform", `translate(0, ${height})`)
@@ -58,19 +36,22 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
 
   // Añadir eje Y
   const y = d3.scaleLinear()
-              .domain([0, d3.max(data, d => +d.value)])
+              .domain([0, 500000])
               .range([height, 0])
   svg.append("g")
     .call(d3.axisLeft(y))
 
-  // Añadir la línea
-  svg.append("path")
-    .datum(data)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .attr("stroke-width", 1.5)
-    .attr("d", d3.line()
-      .x(d => x(d.date))
-      .y(d => y(d.value))
-    )
+  // Añadir los puntos
+  svg.append("g")
+    .selectAll("dot")
+    .data(data)
+    .join("circle")
+      .attr("cx", d => x(d.GrLivArea))
+      .attr("cy", d => y(d.SalePrice))
+      .attr("r", 1.5)
+      .style("fill", "#69b3a2")
 })
+
+
+//ejercicio 1
+

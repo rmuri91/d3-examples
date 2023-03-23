@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- A bit of CSS: change stroke color of circle on hover (white -> black) -->
+<style>
+    .bubbles {
+      stroke-width: 2px;
+      stroke: white;
+    }
+    .bubbles:hover {
+      stroke: black;
+    }
+    .radar-chart .area {
+  fill-opacity: 0.7;
+    }
+
+    .radar-chart.focus .area {
+    fill-opacity: 0.3;
+    }
+
+    .radar-chart.focus .area.focused {
+    fill-opacity: 0.9;
+    }
+
+    .area.germany,
+    .germany .circle {
+    fill: #3a4;
+    stroke: none;
+    }
+
+    .area.argentina,
+    .argentina .circle {
+    fill: #f13;
+    stroke: none;
+    }
+    
+    </style>
+    <title>Ejemplos D3</title>
+</head>
+<body>
+    <h2>Hacer un gráfico de histograma, uno de burbujas y uno de radar con los datos que se quiera:</h1>
+
+    <!-- Histograma -->
+       <!--  <div id="my_dataviz"></div> -->
+    <svg width=460 height=400 id="my_dataviz"></svg> 
+    <p>
+    <label># bins</label>
+    <input type="number" min="1" max="100" step="30" value="20" id="nBin">
+    </p>
+    <br>
+    <!-- Burbujas -->
+    <svg width=460 height=400 id="my_dataviz2"></svg>
+  
+    <!-- Radar -->
+    
+
+
+    <!-- Javascript -->
+    <script src="https://d3js.org/d3.v6.js"></script>
+  <script src="js/main2.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"></script>
+ 
+</body>
+</html>
